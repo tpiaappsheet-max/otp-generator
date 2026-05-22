@@ -53,25 +53,33 @@ font-size:14px;
 }
 
 </style>
+
+<!-- html2canvas Library -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 </head>
 
 <body>
 
-<div class="box">
+<div class="box" id="captureArea">
 
-<div id="message">
-</div>
+<div id="message"></div>
+
 <div id="otp" onclick="copyOTP()" title="Click to Copy">
 ------
+</div>
+
 </div>
 
 <button onclick="copyOTP()">
 Copy OTP
 </button>
 
-<div id="msg"></div>
+<button onclick="takeScreenshot()">
+Take Screenshot
+</button>
 
-</div>
+<div id="msg"></div>
 
 <script>
 
@@ -159,6 +167,27 @@ document.getElementById("msg").innerHTML =
 "OTP Copied Successfully";
 
 }
+
+}
+
+function takeScreenshot(){
+
+html2canvas(document.getElementById("captureArea"))
+.then(function(canvas){
+
+let link =
+document.createElement("a");
+
+link.download = "OTP_Screenshot.png";
+
+link.href = canvas.toDataURL();
+
+link.click();
+
+document.getElementById("msg").innerHTML =
+"Screenshot Downloaded";
+
+});
 
 }
 
