@@ -23,6 +23,13 @@ max-width:400px;
 margin:auto;
 }
 
+#message{
+font-size:20px;
+margin-bottom:20px;
+color:#333;
+font-weight:bold;
+}
+
 #otp{
 font-size:38px;
 font-weight:bold;
@@ -51,6 +58,10 @@ font-size:14px;
 <body>
 
 <div class="box">
+
+<div id="message">
+Welcome
+</div>
 
 <h2>Your OTP</h2>
 
@@ -101,6 +112,23 @@ document.getElementById("otp").innerHTML = otp;
 
 }
 
+function loadMessage(){
+
+let params =
+new URLSearchParams(window.location.search);
+
+let message =
+params.get("msg");
+
+if(message){
+
+document.getElementById("message").innerHTML =
+decodeURIComponent(message);
+
+}
+
+}
+
 function copyOTP(){
 
 let otp =
@@ -138,7 +166,13 @@ document.getElementById("msg").innerHTML =
 
 }
 
-window.onload = loadOTP;
+window.onload = function(){
+
+loadOTP();
+
+loadMessage();
+
+};
 
 </script>
 
