@@ -65,15 +65,12 @@ font-size:14px;
 
 <div id="message"></div>
 
-<div id="otp" onclick="copyOTP()" title="Click to Copy">
+<div id="otp">
 ------
 </div>
 
 </div>
 
-<button onclick="copyOTP()">
-Copy OTP
-</button>
 
 <button onclick="takeScreenshot()">
 Take Screenshot
@@ -132,41 +129,6 @@ document.getElementById("message").innerHTML =
 decodeURIComponent(message);
 
 }
-
-}
-
-function copyOTP(){
-
-let otp =
-document.getElementById("otp").innerText;
-
-if (navigator.clipboard) {
-
-navigator.clipboard.writeText(otp)
-.then(function(){
-
-document.getElementById("msg").innerHTML =
-"OTP Copied Successfully";
-
-});
-
-} else {
-
-let tempInput =
-document.createElement("input");
-
-tempInput.value = otp;
-
-document.body.appendChild(tempInput);
-
-tempInput.select();
-
-document.execCommand("copy");
-
-document.body.removeChild(tempInput);
-
-document.getElementById("msg").innerHTML =
-"OTP Copied Successfully";
 
 }
 
