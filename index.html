@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+
 body{
 font-family:Arial;
 text-align:center;
@@ -28,9 +29,23 @@ font-weight:bold;
 color:#007bff;
 margin:20px 0;
 letter-spacing:5px;
+cursor:pointer;
 }
-</style>
 
+button{
+padding:10px 20px;
+margin:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+#msg{
+color:green;
+margin-top:10px;
+font-size:14px;
+}
+
+</style>
 </head>
 
 <body>
@@ -39,11 +54,15 @@ letter-spacing:5px;
 
 <h2>Your OTP</h2>
 
-<div id="otp">------</div>
+<div id="otp" onclick="copyOTP()" title="Click to Copy">
+------
+</div>
 
-<button onclick="generateOTP()">
-Generate OTP
+<button onclick="copyOTP()">
+Copy OTP
 </button>
+
+<div id="msg"></div>
 
 </div>
 
@@ -62,13 +81,64 @@ letters.charAt(Math.floor(Math.random() * letters.length));
 let numbers =
 Math.floor(1000 + Math.random() * 9000);
 
-let otp = firstLetter + secondLetter + numbers;
+return firstLetter + secondLetter + numbers;
+
+}
+
+function loadOTP(){
+
+let otp = sessionStorage.getItem("generatedOTP");
+
+if(!otp){
+
+otp = generateOTP();
+
+sessionStorage.setItem("generatedOTP", otp);
+
+}
 
 document.getElementById("otp").innerHTML = otp;
 
 }
 
-window.onload = generateOTP;
+function copyOTP(){
+
+let otp =
+document.getElementById("otp").innerText;
+
+if (navigator.clipboard) {
+
+navigator.clipboard.writeText(otp)
+.then(function(){
+
+document.getElementById("msg").innerHTML =
+"OTP Copied Successfully";
+
+});
+
+} else {
+
+let tempInput =
+document.createElement("input");
+
+tempInput.value = otp;
+
+document.body.appendChild(tempInput);
+
+tempInput.select();
+
+document.execCommand("copy");
+
+document.body.removeChild(tempInput);
+
+document.getElementById("msg").innerHTML =
+"OTP Copied Successfully";
+
+}
+
+}
+
+window.onload = loadOTP;
 
 </script>
 
