@@ -51,11 +51,20 @@ Generate OTP
 
 function generateOTP(){
 
-let otp =
-Math.floor(100000 + Math.random()*900000);
+let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-document.getElementById("otp")
-.innerHTML = otp;
+let firstLetter =
+letters.charAt(Math.floor(Math.random() * letters.length));
+
+let secondLetter =
+letters.charAt(Math.floor(Math.random() * letters.length));
+
+let numbers =
+Math.floor(1000 + Math.random() * 9000);
+
+let otp = firstLetter + secondLetter + numbers;
+
+document.getElementById("otp").innerHTML = otp;
 
 }
 
